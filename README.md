@@ -91,16 +91,18 @@ CREATE TABLE `veiculo_remedio` (
 ```
 
 ### Query de consulta
+A query a seguir retorna o número médio de pacientes transportados por mês em cada veículo
 ```
 SELECT 
 	veiculo_paciente.veiculo_id, 
-	CONCAT(YEAR(veiculo_paciente.`data`), "-", MONTH(veiculo_paciente.`data`)) as `data`, 
-	COUNT(veiculo_paciente.paciente_id) as 'quantidade_pacientes'
+	MONTH(veiculo_paciente.`data`) as `mes`, 
+	COUNT(veiculo_paciente.paciente_id) / COUNT(DISTINCT YEAR(veiculo_paciente.`data`)) as 'quantidade_pacientes_media_mes'
 FROM veiculo_paciente
-GROUP BY YEAR(veiculo_paciente.`data`), MONTH(veiculo_paciente.`data`), veiculo_paciente.veiculo_id 
+GROUP BY MONTH(veiculo_paciente.`data`), veiculo_paciente.veiculo_id 
 ```
 
 Resultado:
+
 <img src="./resultado-query.png">
 
 ## Links
